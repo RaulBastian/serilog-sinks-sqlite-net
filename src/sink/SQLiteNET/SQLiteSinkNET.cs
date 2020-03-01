@@ -35,7 +35,6 @@ namespace Serilog.Sinks.Extensions
         private readonly string _databasePath;
         private readonly IFormatProvider _formatProvider;
         private readonly bool _storeTimestampInUtc;
-        private readonly bool _storeDateTimeAsTicks;
         private readonly uint _maxDatabaseSize;
         private readonly bool _rollOver;
         private readonly string _tableName;
@@ -213,7 +212,7 @@ namespace Serilog.Sinks.Extensions
                         TruncateLog(sqlConnection);
                         await WriteToDatabaseAsync(logEventsBatch, sqlConnection).ConfigureAwait(false);
 
-                        //var result = sqlConnection.Query<EventPOCO>("select * from Logs")?.Count();
+                        //var result = sqlConnection.Query<EventDTO>("select * from Logs")?.Count();
 
                         SelfLog.WriteLine($"Rolling database to {newFilePath}");
                         return true;

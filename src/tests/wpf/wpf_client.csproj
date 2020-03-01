@@ -98,18 +98,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Serilog.Sinks.SQLLite-NET\Serilog.Sinks.SQLLite-NET.csproj">
-      <Project>{aa383091-4b77-45fc-8942-1505f61b50b6}</Project>
-      <Name>Serilog.Sinks.SQLLite-NET</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.7.302-beta</Version>
     </PackageReference>
     <PackageReference Include="SQLitePCLRaw.bundle_green">
       <Version>2.0.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\sink\Serilog.Sinks.SQLLite-NET.csproj">
+      <Project>{6de80a72-5e39-4d77-a696-1661e9cffb2b}</Project>
+      <Name>Serilog.Sinks.SQLLite-NET</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

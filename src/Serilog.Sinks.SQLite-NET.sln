@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Sinks.SQLLite-NET", "src\Serilog.Sinks.SQLLite-NET\Serilog.Sinks.SQLLite-NET.csproj", "{AA383091-4B77-45FC-8942-1505F61B50B6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6C95E289-764B-4F76-8EA3-AD98B4032FC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wpf_client", "wpf_client\wpf_client.csproj", "{7F175E8F-F787-4CA1-9F7F-20759B11E864}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Sinks.SQLLite-NET", "Serilog.Sinks.SQLLite-NET.csproj", "{1743A237-C24B-4877-A569-A10D280B0228}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wpf_client", "tests\wpf\wpf_client.csproj", "{7F175E8F-F787-4CA1-9F7F-20759B11E864}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AA383091-4B77-45FC-8942-1505F61B50B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA383091-4B77-45FC-8942-1505F61B50B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA383091-4B77-45FC-8942-1505F61B50B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA383091-4B77-45FC-8942-1505F61B50B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1743A237-C24B-4877-A569-A10D280B0228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1743A237-C24B-4877-A569-A10D280B0228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1743A237-C24B-4877-A569-A10D280B0228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1743A237-C24B-4877-A569-A10D280B0228}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F175E8F-F787-4CA1-9F7F-20759B11E864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F175E8F-F787-4CA1-9F7F-20759B11E864}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F175E8F-F787-4CA1-9F7F-20759B11E864}.Release|Any CPU.ActiveCfg = Release|Any CPU

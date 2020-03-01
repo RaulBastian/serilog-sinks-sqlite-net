@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Serilog.Sinks.SQLLiteNET</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Serilog" Version="2.9.0" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.7.302-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Sinks\Batch\" />
+    <Folder Include="Sinks\Extensions\" />
+  </ItemGroup>
+
+</Project>

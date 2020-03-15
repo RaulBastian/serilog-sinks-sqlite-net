@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 
 namespace Serilog.Sinks.Batch
 {
-    internal abstract class BatchProvider : IDisposable
+    public abstract class BatchProvider : IDisposable
     {
         private const int MaxSupportedBufferSize = 100_000;
         private const int MaxSupportedBatchSize = 1_000;

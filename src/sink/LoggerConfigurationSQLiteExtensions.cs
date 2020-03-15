@@ -61,46 +61,106 @@ namespace Serilog
             uint maxDatabaseSize = 10,
             bool rollOver = true)
         {
-            if (loggerConfiguration == null) {
+            string dummy = "";
+            return GetSinkConfiguration(loggerConfiguration,
+                                        sqliteDbPath,
+                                        out dummy,
+                                        tableName,
+                                        restrictedToMinimumLevel,
+                                        formatProvider,
+                                        storeTimestampInUtc,
+                                        retentionPeriod,
+                                        retentionCheckInterval,
+                                        levelSwitch,
+                                        batchSize,
+                                        maxDatabaseSize,
+                                        rollOver);
+        }
+
+        public static LoggerConfiguration SQLLiteNET(
+           this LoggerSinkConfiguration loggerConfiguration,
+           string relativeSqliteDbPath,
+           out string absoluteSqliteDbPath,
+           string tableName = "Logs",
+           LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
+           IFormatProvider formatProvider = null,
+           bool storeTimestampInUtc = false,
+           TimeSpan? retentionPeriod = null,
+           TimeSpan? retentionCheckInterval = null,
+           LoggingLevelSwitch levelSwitch = null,
+           uint batchSize = 100,
+           uint maxDatabaseSize = 10,
+           bool rollOver = true)
+        {
+            return GetSinkConfiguration(loggerConfiguration,
+                                        relativeSqliteDbPath,
+                                        out absoluteSqliteDbPath,
+                                        tableName,
+                                        restrictedToMinimumLevel,
+                                        formatProvider,
+                                        storeTimestampInUtc,
+                                        retentionPeriod,
+                                        retentionCheckInterval,
+                                        levelSwitch,
+                                        batchSize,
+                                        maxDatabaseSize,
+                                        rollOver);
+        }
+
+        private static LoggerConfiguration GetSinkConfiguration(LoggerSinkConfiguration loggerConfiguration,
+            string relativeOrAbsoluteSqliteDbPath,
+            out string sqlliteDbAbsolutePath,
+            string tableName = "Logs",
+            LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
+            IFormatProvider formatProvider = null,
+            bool storeTimestampInUtc = false,
+            TimeSpan? retentionPeriod = null,
+            TimeSpan? retentionCheckInterval = null,
+            LoggingLevelSwitch levelSwitch = null,
+            uint batchSize = 100,
+            uint maxDatabaseSize = 10,
+            bool rollOver = true)
+        {
+            if (loggerConfiguration == null)
+            {
                 SelfLog.WriteLine("Logger configuration is null");
 
                 throw new ArgumentNullException(nameof(loggerConfiguration));
             }
 
-            if (string.IsNullOrEmpty(sqliteDbPath)) {
+            if (string.IsNullOrEmpty(relativeOrAbsoluteSqliteDbPath))
+            {
                 SelfLog.WriteLine("Invalid sqliteDbPath");
 
-                throw new ArgumentNullException(nameof(sqliteDbPath));
+                throw new ArgumentNullException(nameof(relativeOrAbsoluteSqliteDbPath));
             }
 
-            if (!Uri.TryCreate(sqliteDbPath, UriKind.RelativeOrAbsolute, out var sqliteDbPathUri)) {
-                throw new ArgumentException($"Invalid path {nameof(sqliteDbPath)}");
+            if (!Uri.TryCreate(relativeOrAbsoluteSqliteDbPath, UriKind.RelativeOrAbsolute, out var sqliteDbPathUri))
+            {
+                throw new ArgumentException($"Invalid path {nameof(relativeOrAbsoluteSqliteDbPath)}");
             }
 
-            if (!sqliteDbPathUri.IsAbsoluteUri) {
+            if (!sqliteDbPathUri.IsAbsoluteUri)
+            {
                 var basePath = System.Reflection.Assembly.GetEntryAssembly().Location;
-                sqliteDbPath = Path.Combine(Path.GetDirectoryName(basePath) ?? throw new NullReferenceException(), sqliteDbPath);
+                relativeOrAbsoluteSqliteDbPath = Path.Combine(Path.GetDirectoryName(basePath) ?? throw new NullReferenceException(), relativeOrAbsoluteSqliteDbPath);
             }
 
-            try {
-                var sqliteDbFile = new FileInfo(sqliteDbPath);
+            sqlliteDbAbsolutePath = relativeOrAbsoluteSqliteDbPath;
+
+            try
+            {
+                var sqliteDbFile = new FileInfo(relativeOrAbsoluteSqliteDbPath);
                 sqliteDbFile.Directory?.Create();
 
-                return loggerConfiguration.Sink(
-                    new SQLiteSinkNET(
-                        sqliteDbFile.FullName,
-                        tableName,
-                        formatProvider,
-                        storeTimestampInUtc,
-                        retentionPeriod,
-                        retentionCheckInterval,
-                        batchSize,
-                        maxDatabaseSize,
-                        rollOver),
-                    restrictedToMinimumLevel,
-                    levelSwitch);
+                var sink = new SQLiteSinkNET(sqliteDbFile.FullName, tableName,formatProvider,
+                                             storeTimestampInUtc,retentionPeriod,retentionCheckInterval,
+                                             batchSize,maxDatabaseSize,rollOver);
+
+                return loggerConfiguration.Sink(sink, restrictedToMinimumLevel, levelSwitch);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 SelfLog.WriteLine(ex.Message);
 
                 throw;

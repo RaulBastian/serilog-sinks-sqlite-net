@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Serilog.Sinks.SQLLiteNET
 {
-    public class EventDTO
+    public class LogEventDTO
     {
         public int Id { get; set; }
         public string Text { get; set; }

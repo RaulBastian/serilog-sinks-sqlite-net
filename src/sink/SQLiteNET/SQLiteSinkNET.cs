@@ -29,7 +29,7 @@ using SQLite;
 
 namespace Serilog.Sinks.Extensions
 {
-    internal class SQLiteSinkNET : BatchProvider, ILogEventSink
+    public class SQLiteSinkNET : BatchProvider, ILogEventSink
     {
 
         private readonly string _databasePath;
@@ -207,7 +207,7 @@ namespace Serilog.Sinks.Extensions
                         var newFilePath = Path.Combine(Path.GetDirectoryName(_databasePath) ?? "Logs",
                             $"{Path.GetFileNameWithoutExtension(_databasePath)}-{DateTime.Now:yyyyMMdd_hhmmss.ff}{dbExtension}");
 
-                        File.Copy(_databasePath, newFilePath, true);
+                        System.IO.File.Copy(_databasePath, newFilePath, true);
 
                         TruncateLog(sqlConnection);
                         await WriteToDatabaseAsync(logEventsBatch, sqlConnection).ConfigureAwait(false);
